@@ -5,7 +5,7 @@ function HomePage() {
       <div className="   ">
         <img
           src="/images/banner.png"
-          className="h-72 w-full"
+          className="sm:h-36 md:h-72 w-full"
           alt="Picture of the banner's torino "
         />
       </div>

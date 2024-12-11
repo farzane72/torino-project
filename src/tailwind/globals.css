@@ -19,3 +19,12 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 } */
+.inputStyle {
+  border: 1px solid #00000040;
+  border-radius: 6px;
+  margin:0 6px;
+  text-align: center;
+  width:56px !important;
+  height: 53px;
+  box-sizing: content-box;
+}

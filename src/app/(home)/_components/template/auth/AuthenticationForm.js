@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
-import { useSendOtp } from "../../_api/main/mutations";
+import { useSendOtp } from "@/app/(home)/_api/main/mutations";
 import toast from "react-hot-toast";
-import Loading from "./Loading";
-//import { useRouter } from "next/router";
+import Loading from "../../modules/Loading";
+
 function AuthenticationForm(props) {
   const {
-    showAuthentication,
-    setShowAuthentication,
+    isOpen,
+    setIsOpen,
     phoneNumber,
     setPhoneNumber,
     step,
@@ -17,11 +17,11 @@ function AuthenticationForm(props) {
     setCode,
   } = props;
   const [messege, setMessage] = useState("");
-  //const router = useRouter();
+  
 
   const { mutate, isPending, mutateAsync, isSuccess } = useSendOtp();
   console.log(phoneNumber);
-  console.log(showAuthentication);
+  console.log(isOpen);
 
   const sendOtpHandler = (event) => {
     event.preventDefault();
@@ -41,7 +41,7 @@ function AuthenticationForm(props) {
       //
       //  }
     } else {
-      // //toast ba format sahih vared konid
+     
       toast.error("لطفا شمراه همراه با فرمت صحیح وارد کنید");
       return;
     }
@@ -59,36 +59,20 @@ function AuthenticationForm(props) {
         ? "شماره همراه وارد شده معتبر است."
         : "شماره همراه وارد شده معتبر نیست."
     );
-    // } else {
-    //   setMessage("شماره همراه وارد شده معتبرنیست");
-    // }
-
-    // if (/^\d*$/.test(value)) {
-    //   setMobileNumber(value);
-
-    //   // Regular expression to match exactly 10 digits
-    //   const regex = /^\d{10}$/;
-    //   if (value.length === 0 || regex.test(value)) {
-    //     setMessage(value.length === 10 ? 'Mobile number is valid.' : '');
-    //   } else {
-    //     setMessage('Mobile number must be exactly 10 digits.');
-    //   }
-    // } else {
-    //   setMessage('Only digits are allowed.');
-    // }
+  
   };
 
   return (
     <div className=" relative  shadow-[0_4px_4px_0_rgba(0,0,0,0,.25)] ">
       <div className="absolute left-4 top-4 cursor-pointer">
-        <VscClose size={24} onClick={() => setShowAuthentication(false)} />
+        <VscClose size={24} onClick={() => setIsOpen(false)} />
       </div>
       <div className="p-10 flex flex-col  w-[358px] h-[362px] md:w-[581px] md:h-[362px] bg-white border rounded-lg ">
-        {/* <div className=""> */}
+        
         <p className="font-semibold mt-8 text-center text-[22px] md:text-[28px]">
           ورود به تورینو
         </p>
-        {/* </div> */}
+      
         <form
           className="mt-10 flex flex-col gap-2 font-light"
           onSubmit={sendOtpHandler}
@@ -115,9 +99,7 @@ function AuthenticationForm(props) {
             </button>
           )}
         </form>
-        {/* <div className=""> */}
-
-        {/* </div> */}
+       
       </div>
     </div>
   );

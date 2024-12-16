@@ -8,6 +8,7 @@ import AuthenticationForm from "../modules/AuthenticationForm";
 import { BiLogInCircle } from "react-icons/bi";
 import { HiMiniUser } from "react-icons/hi2";
 import VerifyAuthentication from "../modules/VerifyAuthentication";
+import AuthForm from "../template/AuthForm";
 function Header() {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showAuthentication,setShowAuthentication] = useState(false);
@@ -17,6 +18,8 @@ function Header() {
     // console.log(showNavbar);
   };
   const authenticationHandler = () => {
+    console.log("test");
+
     setShowAuthentication(true);
      console.log(showAuthentication);
   };
@@ -98,7 +101,7 @@ function Header() {
           ></div>
           <div className={` ${!showAuthentication?`hidden`:`absolute top-0 right-0  z-[500] w-full h-screen flex justify-center align-middle items-center`}`}>
             {
-              showAuthentication && <VerifyAuthentication  showAuthentication={showAuthentication}
+              showAuthentication && <AuthForm  showAuthentication={showAuthentication}
                setShowAuthentication={setShowAuthentication}/>
             }
 

@@ -1,4 +1,4 @@
-import MainLayout from "./_components/layout/MainLayout";
+import MainLayout from "./_components/layout/main/MainLayout";
 import QueryProvider from "@/providers/react-query-provider";
 import { Toaster } from "react-hot-toast";
 

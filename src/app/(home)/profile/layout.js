@@ -1,4 +1,4 @@
-import ProfileLayoat from "../_components/layout/ProfileLayoat";
+import ProfileLayoat from "../_components/layout/profile/ProfileLayoat";
 import AuthProvider from "@/providers/auth-provider";
 function ProfileLayout({ children }) {
   return (

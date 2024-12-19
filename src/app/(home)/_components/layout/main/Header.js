@@ -1,8 +1,8 @@
 "use client";
 
-import AuthForm from "../template/auth/AuthForm";
-import Menu from "../template/menu/Menu";
-import Logo from "../modules/Logo";
+import AuthForm from "../../template/auth/AuthForm";
+import Menu from "../../template/menu/Menu";
+import Logo from "../../modules/Logo";
 function Header() {
   return (
     <>

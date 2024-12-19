@@ -2,7 +2,7 @@
 import { useState } from "react";
 import AuthenticationForm from "./AuthenticationForm";
 import VerifyAuthentication from "./VerifyAuthentication";
-import ModalContainer from "../../modules/ModalContainer";
+import ModalContainer from "../../modules/modals/ModalContainer";
 import { HiMiniUser } from "react-icons/hi2";
 import { BsChevronDown } from "react-icons/bs";
 import { BiLogInCircle } from "react-icons/bi";

@@ -1,15 +1,15 @@
 import { CgMenu } from "react-icons/cg";
 import { useState } from "react";
 import Link from "next/link";
-import ModalContainer from "../../modules/ModalContainer";
+import ModalContainer from "../../modules/modals/ModalContainer";
 import NavbarMenu from "./NavbarMenu";
 function Menu() {
   const [showNavbar, setShowNavbar] = useState(false);
 
   const menuHandler = () => {
-    console.log("test");
+    //  console.log("test");
     setShowNavbar(true);
-    console.log(showNavbar);
+    // console.log(showNavbar);
   };
   return (
     <>
@@ -32,13 +32,11 @@ function Menu() {
         <CgMenu className="cursor-pointer" size={28} onClick={menuHandler} />
       </div>
 
-      {
-        showNavbar&&(
-            <ModalContainer modalName="nav" setState={setShowNavbar} >
-                <NavbarMenu />
-            </ModalContainer>
-        )
-      }
+      {showNavbar && (
+        <ModalContainer modalName="nav" setState={setShowNavbar}>
+          <NavbarMenu />
+        </ModalContainer>
+      )}
     </>
   );
 }

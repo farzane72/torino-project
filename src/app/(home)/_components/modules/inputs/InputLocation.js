@@ -1,21 +1,48 @@
+"use client";
+import { useState } from "react";
 import ModalLocation from "../modals/ModalLocation";
 //import DataPiker from "../../modules/DataPiker";
+
 function InputLocation({
   icon,
   className,
   title,
   onSelect,
-  onOPen,
-  isOpen,
+  // onOPen,
+  // isOpen,
   selectValue,
+  tours,
 }) {
-  // icon="HiOutlineLocationMarker"
-  // className="  w-[328px] md:w-[528px]  lg:w-[874px] lg:h-[71px] "
-  // title="مبدا"
-  // state={origin}
-  // openState={isOpenOrigin}
-  // onSelect={setOrigin}
-  // onOPen={SetIsOpenOrigin}
+  const [location, setLocation] = useState([]);
+  const [isOpenLocation, setIsOpenLocation] = useState(false);
+  
+  console.log(isOpenLocation);
+
+  const uniqueCities = (key) => {
+    return Array.from(
+      tours
+        .reduce((map, item) => {
+          const { id, name } = item[key];
+          if (!map.has(id)) {
+            map.set(id, { id, name });
+          }
+          return map;
+        }, new Map())
+        .values()
+    );
+  };
+
+  //console.log(location);
+  const clickHandler = () => {
+    setIsOpenLocation(true);
+    if (title === "مبدا") {
+      setLocation(() => uniqueCities("origin"));
+    }
+    if (title === "مقصد") {
+      setLocation(() => uniqueCities("destination"));
+    }
+  };
+
   return (
     <div
       className={` relative flex  justify-center items-center  gap-2 p-2  text-black/35 text-base  font-normal  border rounded-md border-[#00000033]
@@ -23,21 +50,23 @@ function InputLocation({
                ${className} `}
     >
       {icon}
-      {/* <span className="">مبدا</span> */}
+
       <input
         placeholder={title}
         className="placeholder:text-black/35 lg:placeholder:text-[#2C2C2C] border-none appearance-none outline-none shadow-none w-full focus:outline-none  disabled:text-gray-200"
         onChange={(e) => onselect(e.target.value)}
-        onClick={() => onOPen(true)}
-        value={selectValue}
+        onClick={clickHandler}
+        value={selectValue?.name || ""}
       />
 
       {
         <>
-          <ModalLocation onSelect={onSelect} onOPen={onOPen} isOpen={isOpen} />
-
-          {/* {title === "تاریخ" && <DataPiker isOpen={isOpen} onOPen={onOPen}
-           calendarValue={stateValue} setCalendarValue={onSelect} />} */}
+          <ModalLocation
+            onSelect={onSelect}
+            onOPen={setIsOpenLocation}
+            isOpen={isOpenLocation}
+            options={location}
+          />
         </>
       }
     </div>

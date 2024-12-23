@@ -1,8 +1,8 @@
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useState } from "react";
-function ModalLocation({ onSelect,onOPen ,isOpen}) {
+function ModalLocation({ onSelect,onOPen ,isOpen,options}) {
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const options = ["تهران", "رشت ", "قزوین"];
+  //const options = ["Tehran", "رشت ", "قزوین"];
 
   const handleKeyDown = (event) => {
     console.log(event.key);
@@ -58,7 +58,7 @@ function ModalLocation({ onSelect,onOPen ,isOpen}) {
           >
             {/* // setOrigin(name), */}
             <HiOutlineLocationMarker size={20} />
-            <span className="">{option}</span>
+            <span className="">{option.name}</span>
           </li>
         ))}
       </ul>

@@ -1,7 +1,22 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
 
-export default nextConfig;
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'http',
+            hostname: 'localhost',
+            port: '6500',
+            pathname: '/static/images/**',
+            search: '',
+          },
+        ],
+      },
+
+    
+};
+
+
 // const path = require('path');
 
 // module.exports = {
@@ -13,3 +28,28 @@ export default nextConfig;
 //     return config;
 //   },
 // };
+
+
+// module.exports = {
+//     images: {
+//       remotePatterns: [
+//         {
+//           protocol: 'http',
+//           hostname: 'localhost',
+//           port: '6500',
+//           pathname: '/static/images/**',
+//           search: '',
+//         },
+//       ],
+//     },
+//   }
+
+
+
+//   protocol: "http",
+// hostname: "localhost",
+// port: "6500",
+// pathname: "/static/images/**",
+// search: "",
+
+export default nextConfig;

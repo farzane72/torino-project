@@ -2,30 +2,52 @@
 import { useState } from "react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbWorldSearch } from "react-icons/tb";
-import { HiOutlineCalendarDateRange } from "react-icons/hi2";
-import ModalCities from "../../modules/modals/ModalLocation";
 import InputLocation from "../../modules/inputs/InputLocation";
 import InputDate from "../../modules/inputs/InputDate";
+import { useGetAllTours } from "@/app/(home)/_api/main/queries";
+import Loading from "@/app/(home)/loading";
+import Tour from "../../modules/tour/Tour";
+import TourList from "../../modules/tour/TourList";
 
 function Tours() {
-  const [isOpenOrigin, SetIsOpenOrigin] = useState(false);
-  const [isOpenDestination, SetIsOpenDestination] = useState(false);
- // const [isOpenDate, SetIsOpenDate] = useState(false);
+  
   const [destination, setDestination] = useState("");
   const [origin, setOrigin] = useState("");
- // const [date, setDate] = useState("");
   const [date, setDate] = useState("");
-  // const btnOriginHandler = (e) => {
-  //   console.log(e.target.value);
-  //   setOrigin(e.target.value);
-  // };
-  const serchHandler =(e)=>{
-    console.log(origin);
-    console.log(destination);
-    console.log(date);
+  const searchQuery = {
+    
+    destinationId: destination.id || "",
+    originId: origin.id || "",
+    startDate:date?date.toISOString():""
+};
 
-  }
+const { data, isPending, isSuccess ,isError,error,status} = useGetAllTours(searchQuery);
 
+  console.log(data);
+  console.log(searchQuery);
+console.log(status);
+  const searchHandler = () => {
+   
+    console.log("serach");
+    //http://localhost:6500/tour?destinationId=9&originId=1&startDate=2024-11-20T00%3A00%3A00.000Z
+    console.log(origin.id || "");
+    console.log(destination.id || "");
+   
+
+
+   
+    console.log(searchQuery);
+    console.log(data);
+    //window.location.reload();
+    setDestination("")
+    setDate("")
+    setOrigin("")
+
+    
+  };
+  
+  if(isPending) return <Loading />
+  if(isError) return <div>{error.message}</div>
   return (
     <div className="mt-8 container mx-auto  p-4 flex flex-col items-center">
       <h1 className="text-base md:text-xl lg:text-[28px] font-semibold">
@@ -45,26 +67,10 @@ function Tours() {
             title="مبدا"
             selectValue={origin}
             onSelect={setOrigin}
-            isOpen={isOpenOrigin}
-            onOPen={SetIsOpenOrigin}
+            // isOpen={isOpenOrigin}
+            // onOPen={SetIsOpenOrigin}
+            tours={data}
           />
-          {/* <div
-            className="relative flex  justify-center items-center  gap-2 p-2  text-black/35 text-base  font-normal  border rounded-md border-[#00000033]
-               lg:text-[#2C2C2C]  lg:justify-start lg:border-none  "
-          >
-            <HiOutlineLocationMarker size={18} />
-            
-            <input placeholder="مبدا"  className="placeholder:text-black/35 lg:placeholder:text-[#2C2C2C] border-none appearance-none outline-none shadow-none w-full focus:outline-none  disabled:text-gray-200"
-              onChange={btnOriginHandler}
-              onClick={()=>SetIsOpenOrigin(true)}
-              value={origin}
-               />
-
-
-            {
-              isOpenOrigin && <ModalCities  onSelect={setOrigin} onOPen={SetIsOpenOrigin}  />
-            }
-          </div> */}
 
           <InputLocation
             icon={<TbWorldSearch size={18} />}
@@ -72,59 +78,56 @@ function Tours() {
             title="مقصد"
             selectValue={destination}
             onSelect={setDestination}
-            isOpen={isOpenDestination}
-            onOPen={SetIsOpenDestination}
+            // isOpen={isOpenOrigin}
+            // onOPen={SetIsOpenOrigin}
+            tours={data}
           />
-
-          {/* <div
-            className="relative flex w-[160px] h-[47] justify-center items-center gap-2 p-2  text-black/35 text-base  font-normal  border rounded-md border-[#00000033]
-             md:w-[260px] lg:text-[#2C2C2C]  lg:justify-start lg:border-r lg:border-y-0 lg:border-l-0 lg:rounded-none  lg:w-[218px] "
-          >
-            <TbWorldSearch size={18} />
-            <span className="">مقصد</span>
-          </div> */}
         </div>
 
-        {/* <div
-          className="relative flex w-[328px] h-[47]  justify-center items-center gap-2 p-2  text-black/35 text-base  font-normal  border rounded-md border-[#00000033] 
-             md:w-[528px] lg:text-[#2C2C2C]  lg:justify-start  lg:w-[218px] lg:border-r lg:border-y-0 lg:border-l-0 lg:rounded-none "
-        >
-          <HiOutlineCalendarDateRange size={18} />
-          <span className="">تاریخ</span>
-          {isOpenDate && <DataPiker />}
-        </div> */}
-
-
-        {/* <InputLocation
-            icon={<HiOutlineCalendarDateRange size={18} />}
-            className="w-[328px] h-[47]  md:w-[528px] lg:w-[218px] lg:border-r lg:border-y-0 lg:border-l-0 lg:rounded-none  "
-            title="تاریخ"
-            stateValue={calendarValue}
-            onSelect={setCalendarValue}
-            isOpen={isOpenDate}
-            onOPen={SetIsOpenDate}
-          /> */}
-          <InputDate
-           
-           date={date} setDate={setDate}
-          
-          />
-
-
-
-
+        <InputDate date={date} setDate={setDate} />
 
         <button
-          className="bg-[#28A745] text-white rounded-2xl w-[328px] h-[47px]
-            md:w-[528px] lg:h-[51px] lg:w-[218px] text-[20px] font-normal  "
-            onClick={serchHandler}
+          className="cursor-pointer bg-[#28A745] text-white rounded-2xl w-[328px] h-[47px]
+            md:w-[528px] lg:h-[51px] lg:w-[218px] text-[20px] font-normal   "
+          onClick={searchHandler}
         >
           جستجو
         </button>
       </div>
-      <div>همه تورها</div>
+      {/* <div className="grid justify-items-start ">
+        <h1 className="text-[20px] md:text-[32px] text-right">همه تورها</h1> */}
+        {/* {isPending ? (
+          <Loading />
+        ) : ( */}
+        <TourList data={data} />
+         
+        {/* )} */}
+      {/* </div> */}
     </div>
   );
 }
 
 export default Tours;
+
+
+// setSearchQuery((prev)=>(
+//   {
+//     destinationId:destination.id ||"",
+//     originId:origin.id ||"",
+//     startDate:convertDate  }
+
+// ))
+//setSearchQuery(()=>`?destinationId=${destination.id ||""}&originId=${origin.id}&startDate=${convertDate}` )
+
+
+
+ //console.log(date);
+    // const convertDate=date?date.toISOString():"";
+    // console.log(convertDate);
+   //  if(!origin || !destination || !date) return 
+
+
+    //  setSearchQuery(()=>`?${destination?`destinationId=${destination.id}`:""}& ${origin?`originId=${origin.id}`:""}
+    //   & ${date?`startDate=${date.toISOString()}`:""} ` )
+
+    // searchQuery=`destinationId=9&originId=1&startDate=2024-11-20T00%3A00%3A00.000Z`

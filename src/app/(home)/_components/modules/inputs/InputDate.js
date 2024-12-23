@@ -5,8 +5,15 @@ import { useState } from "react";
 import { HiOutlineCalendarDateRange } from "react-icons/hi2";
 function InputDate({  date, setDate }) {
   //const [calendarValue, setCalendarValue] = useState(new Date());
-  console.log(date);
+
+  //console.log(date);
   //if (!isOpen) return;
+  const changeHandler=(e)=>{
+  //  console.log("tetst")
+   
+   // console.log(e.value);
+    setDate((e.value))
+  }
   return (
     <>
       <div
@@ -16,7 +23,7 @@ function InputDate({  date, setDate }) {
         <HiOutlineCalendarDateRange size={18} />
         
         <DatePicker 
-        onChange={(e) => setDate((e.value))} 
+        onChange={changeHandler} 
         inputClass="placeholder:text-black/35 lg:placeholder:text-[#2C2C2C] border-none appearance-none outline-none shadow-none w-full focus:outline-none  disabled:text-gray-200"
         inputAttributes={{
           placeholder: "تاریخ", // Set a placeholder
@@ -25,11 +32,12 @@ function InputDate({  date, setDate }) {
          // readOnly: true, // Example of other attributes
         }}
         position="center"
-        // locale="fa" 
+         locale="fa" 
          round="x2" 
          accentColor="#28A745"
         calendarStyle="calander-style"
-       
+        //customShowDateFormat="dddd, DDD, ddd, d, dd MMMM yyyy à HH'h'mm"
+        
         />
        
         {/* <DatePicker onChange={(e) => setCalendarValue((e.value))} /> */}

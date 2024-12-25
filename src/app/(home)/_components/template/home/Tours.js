@@ -10,44 +10,37 @@ import Tour from "../../modules/tour/Tour";
 import TourList from "../../modules/tour/TourList";
 
 function Tours() {
-  
   const [destination, setDestination] = useState("");
   const [origin, setOrigin] = useState("");
   const [date, setDate] = useState("");
   const searchQuery = {
-    
     destinationId: destination.id || "",
     originId: origin.id || "",
-    startDate:date?date.toISOString():""
-};
+    startDate: date ? date.toISOString() : "",
+  };
 
-const { data, isPending, isSuccess ,isError,error,status} = useGetAllTours(searchQuery);
+  const { data, isPending, isSuccess, isError, error, status } =
+    useGetAllTours(searchQuery);
 
   console.log(data);
   console.log(searchQuery);
-console.log(status);
+  console.log(status);
   const searchHandler = () => {
-   
     console.log("serach");
     //http://localhost:6500/tour?destinationId=9&originId=1&startDate=2024-11-20T00%3A00%3A00.000Z
     console.log(origin.id || "");
     console.log(destination.id || "");
-   
 
-
-   
     console.log(searchQuery);
     console.log(data);
     //window.location.reload();
-    setDestination("")
-    setDate("")
-    setOrigin("")
-
-    
+    setDestination("");
+    setDate("");
+    setOrigin("");
   };
-  
-  if(isPending) return <Loading />
-  if(isError) return <div>{error.message}</div>
+
+  if (isPending) return <Loading />;
+  if (isError) return <div>{error.message}</div>;
   return (
     <div className="mt-8 container mx-auto  p-4 flex flex-col items-center">
       <h1 className="text-base md:text-xl lg:text-[28px] font-semibold">
@@ -96,19 +89,18 @@ console.log(status);
       </div>
       {/* <div className="grid justify-items-start ">
         <h1 className="text-[20px] md:text-[32px] text-right">همه تورها</h1> */}
-        {/* {isPending ? (
+      {/* {isPending ? (
           <Loading />
         ) : ( */}
-        <TourList data={data} />
-         
-        {/* )} */}
+      <TourList data={data} />
+
+      {/* )} */}
       {/* </div> */}
     </div>
   );
 }
 
 export default Tours;
-
 
 // setSearchQuery((prev)=>(
 //   {
@@ -119,15 +111,12 @@ export default Tours;
 // ))
 //setSearchQuery(()=>`?destinationId=${destination.id ||""}&originId=${origin.id}&startDate=${convertDate}` )
 
+//console.log(date);
+// const convertDate=date?date.toISOString():"";
+// console.log(convertDate);
+//  if(!origin || !destination || !date) return
 
+//  setSearchQuery(()=>`?${destination?`destinationId=${destination.id}`:""}& ${origin?`originId=${origin.id}`:""}
+//   & ${date?`startDate=${date.toISOString()}`:""} ` )
 
- //console.log(date);
-    // const convertDate=date?date.toISOString():"";
-    // console.log(convertDate);
-   //  if(!origin || !destination || !date) return 
-
-
-    //  setSearchQuery(()=>`?${destination?`destinationId=${destination.id}`:""}& ${origin?`originId=${origin.id}`:""}
-    //   & ${date?`startDate=${date.toISOString()}`:""} ` )
-
-    // searchQuery=`destinationId=9&originId=1&startDate=2024-11-20T00%3A00%3A00.000Z`
+// searchQuery=`destinationId=9&originId=1&startDate=2024-11-20T00%3A00%3A00.000Z`

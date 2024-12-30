@@ -17,14 +17,20 @@ function SelectLocation({
   //  console.log(uniqueItem(tours,"destination"));
   // }
 
+
+
   const cities = uniqueItem(tours, title === "مبدا" ? "origin" : "destination");
   console.log(cities);
+
+
+
+
   //const cities=uniqueCities(title);
   //console.log(uniqueCities(title));
   return (
     <div
       className={`flex  justify-center items-center  gap-2 p-2  text-black/35 text-base  font-normal  border rounded-md border-[#00000033]
-                lg:text-[#2C2C2C]  lg:justify-start   
+                lg:text-[#2C2C2C]  lg:justify-start w-[160px] h-[47]  md:w-[260px] lg:w-[218px]   
                ${className} `}
     >
       {icon}

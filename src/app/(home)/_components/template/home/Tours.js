@@ -5,7 +5,7 @@ import { TbWorldSearch } from "react-icons/tb";
 import InputLocation from "../../modules/inputs/InputLocation";
 import InputDate from "../../modules/inputs/InputDate";
 import { useGetAllTours } from "@/app/(home)/_api/main/queries";
-import Loading from "@/app/(home)/loading";
+import Loading from "@/app/(home)/_loading";
 import Tour from "../../modules/tour/Tour";
 import TourList from "../../modules/tour/TourList";
 

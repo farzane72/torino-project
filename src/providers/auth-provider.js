@@ -1,6 +1,6 @@
 "use client";
 import { useGetUserData } from "@/app/(home)/_api/main/queries";
-import Loading from "@/app/(home)/loading";
+import Loading from "@/app/(home)/_loading";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";

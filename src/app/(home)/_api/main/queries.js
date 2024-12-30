@@ -9,17 +9,17 @@ const getUserData = async () => {
     return readData(url);
   };
 
-  const getTours = async (query) => {
-    console.log(query);
+  const getTours = async () => {
+   
 
     // const  {originId,destinationId,startDate } =query
     // const url = `tour?destinationId=${destinationId }&originId=${originId}&startDate=${startDate}`
 
 
-    const url = "tour?" + QueryString.stringify(query);
-
-
-
+    //const url = "tour?" + QueryString.stringify(query);
+    console.log("url");
+    const url = "tour"
+console.log(url);
     // url = `tour${query}`;
     //const url = query?`tour?${query}`:"tour";
     return readData(url);
@@ -37,8 +37,8 @@ export const useGetUserData = () => {
 };
 
 
-export const useGetAllTours = (query) => {
-  console.log(query);
+export const useGetAllTours = () => {
+  //console.log(query);
   
   // return useQuery({
   //     queryKey: ["AllTours",query],
@@ -51,10 +51,10 @@ export const useGetAllTours = (query) => {
   //     // staleTime: 2 * 60 * 60 * 1000,
   //    // gcTime: 6 * 60 * 60 * 1000,
   // });
-
-  const queryFn = () => getTours(query)
-   const queryKey = ["AllTours",query]
-
+  
+  const queryFn = () => getTours()
+   const queryKey = ["AllTours"]
+   
    return useQuery({ queryFn, queryKey, enabled: false });
 };
 

@@ -9,12 +9,16 @@ import { useGetAllTours } from "@/app/(home)/_api/main/queries";
 import { useEffect } from "react";
 import Loading from "../../modules/Loading";
 import TourList from "../../modules/tour/TourList";
-function SearchForm() {
+import { useRouter } from "next/navigation";
+import QueryString from "qs";
+import useQuery from "@/core/hooks/query";
+import { useSearchParams } from "next/navigation";
+function SearchForm({ tours }) {
   const [query, setQuery] = useState("");
-  const { register, handleSubmit, control,reset } = useForm();
-
+  const { register, handleSubmit, control, reset } = useForm();
+  const router = useRouter();
   const {
-    data: tours,
+    //data: tours,
     isPending,
     isSuccess,
     isError,
@@ -22,29 +26,38 @@ function SearchForm() {
     status,
     refetch,
   } = useGetAllTours(query);
-  console.log(tours);
+  //console.log(tours);
 
-
-
-
+  const { getQuery } = useQuery();
+ 
   useEffect(() => {
-    refetch();
-   
-  }, [query]);
+    const originId = getQuery("originId");
+    const destinationId = getQuery("destinationId");
+    if (originId && destinationId) reset({ originId, destinationId });
+    console.log({ originId, destinationId });
+  }, []);
+
+  // useEffect(() => {
+  //   refetch();
+
+  // }, [query]);
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    console.log(data);
-    const newData=data.date?{...data}:{...data,date:""}
-    console.log(newData);
-    setQuery(flattenObject(newData));
-    
+    // console.log(data);
+    // const newData=data.date?{...data}:{...data,date:""}
+    // console.log(newData);
+    // setQuery(flattenObject(newData));
+
+    const query = QueryString.stringify(flattenObject(data));
+    console.log(query);
+    router.push(`/?${query}`);
   };
-  if(isPending) return <Loading />
-  if(isError) return <div>{error.message}</div>
+  //if(isPending) return <Loading />
+  //if(isError) return <div>{error.message}</div>
 
   return (
-    <div className="mt-8 container mx-auto  p-4 flex flex-col items-center">
+    <div className="mt-8 container mx-auto  p-4 flex flex-col items-center overscroll-x-none">
       <h1 className="text-base md:text-xl lg:text-[28px] font-semibold">
         <span className="text-[#28A745]">تورینو</span>
         <span className="text-[#595959]">
@@ -61,16 +74,16 @@ function SearchForm() {
           <SelectLocation
             register={register}
             icon={<HiOutlineLocationMarker size={18} />}
-            className="w-[160px] h-[47]  md:w-[260px] lg:w-[218px] lg:border-none "
+            className="lg:border-none "
             title="مبدا"
             selectValue="originId"
-             tours={tours}
+            tours={tours}
           />
 
           <SelectLocation
             register={register}
             icon={<HiOutlineLocationMarker size={18} />}
-            className="w-[160px] h-[47]  md:w-[260px] lg:w-[218px] lg:border-none "
+            className="lg:border-r lg:border-y-0 lg:border-l-0 lg:rounded-none "
             title="مقصد"
             selectValue="destinationId"
             tours={tours}
@@ -101,13 +114,12 @@ function SearchForm() {
         </button>
       </form>
 
-      <TourList data={tours} />
+      {/* <TourList data={tours} /> */}
     </div>
   );
 }
 
 export default SearchForm;
-
 
 //for render server
 

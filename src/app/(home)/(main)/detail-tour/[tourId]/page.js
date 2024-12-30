@@ -9,6 +9,7 @@ import { SiSpringsecurity } from "react-icons/si";
 import Link from "next/link";
 import { TbRouteSquare2 } from "react-icons/tb";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
+import BuyButton from "@/app/(home)/_components/modules/buttons/BuyButton";
 export default async function detailTour({ params, searchParams }) {
   const resolvedParams = await params;
 
@@ -87,13 +88,15 @@ export default async function detailTour({ params, searchParams }) {
               />
             </div>
             <div className="flex justify-between lg:flex-row-reverse">
-              <Link
+              {/* <Link
                 className="bg-[#28A745] p-2 rounded-md text-xl lg:text-2xl text-white w-[154px] h-[42px]  lg:w-[204px] lg:h-[53px] flex justify-center
                   items-center"
                 href={``}
               >
                 رزرو و خرید
-              </Link>
+              </Link> */}
+
+              <BuyButton text="رزرو و خرید" url={`/reserve-tour/${data.id}`} />
               <div className="flex gap-2 items-center">
                 <span className="text-2xl text-[28px] text-[#009ECA]">
                   {data.price}

@@ -5,17 +5,29 @@ import SearchForm from "./SearchForm";
 import Banner from "./Banner";
 import WhyTorino from "./WhyTorino";
 import Services from "./Services";
-function HomePage() {
+import { serverFetch } from "@/core/services/http-server";
+import TourList from "./TourList";
+
+
+export default async function HomePage({ searchParams }) {
+  console.log("params");
+  
+
+  const resolvedParams = await searchParams;
+  console.log(resolvedParams);
+  const data = await serverFetch("tour", resolvedParams, { cache: "no-store" });
+  console.log(data);
   return (
-    <main className=" w-full h-screen   ">
+    <main className="  ">
       <MainSlider />
       {/* <Tours /> */}
-      {/* <SearchForm /> */}
-      {/* <Banner /> */}
+      <SearchForm  tours={data} />
+      <TourList data={data }/>
+      <Banner />
       <WhyTorino />
       <Services />
     </main>
   );
 }
 
-export default HomePage;
+

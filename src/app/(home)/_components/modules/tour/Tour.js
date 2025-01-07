@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import BuyButton from "../buttons/BuyButton";
+import BuyButton from "../buttons/RezerveButton";
 function Tour({ tourData }) {
   //console.log(tourData.image);
   return (
@@ -33,7 +33,14 @@ function Tour({ tourData }) {
           >
             رزرو
           </Link> */}
-          <BuyButton text="رزرو" url={`/detail-tour/${tourData.id}`} />
+
+          <Link
+            href={`/detail-tour/${tourData.id}`}
+            className="bg-[#28A745] p-2 rounded-md text-white w-[64px] h-[25px]  md:w-[99px] md:h-[29px] flex justify-center
+                        items-center"
+          >
+            رزرو
+          </Link>
           <div className="flex gap-2 items-center">
             <span className="text-base text-[#009ECA]">{tourData.price}</span>
             <span className="text-xs text-[#000000]">تومان</span>

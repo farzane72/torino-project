@@ -1,8 +1,8 @@
 function TextWithIcon({ text, icon, className = "" }) {
   return (
-    <div className={`flex gap-2 items-center font-light ${className}`}>
+    <div className={`flex gap-2 items-center font-light `}>
       {icon}
-      <span>{text}</span>
+      <span className={` ${className}`}>{text}</span>
     </div>
   );
 }

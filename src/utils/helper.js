@@ -32,4 +32,17 @@ const uniqueItem = (array,key) => {
   );
 };
 
-export { flattenObject, DateToIso ,uniqueItem};
+
+const validateIranianNationalCode = (value) => {
+  if (!/^\d{10}$/.test(value)) return false; // Must be exactly 10 digits
+
+  const check = +value[9];
+  const sum = value
+    .substring(0, 9)
+    .split('')
+    .reduce((acc, digit, index) => acc + +digit * (10 - index), 0);
+
+  const remainder = sum % 11;
+  return remainder < 2 ? check === remainder : check === 11 - remainder;
+};
+export { flattenObject, DateToIso ,uniqueItem,validateIranianNationalCode};

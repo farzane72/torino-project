@@ -28,12 +28,9 @@ function AuthForm(props) {
     RemoveCookie("accessToken");
     RemoveCookie("refreshToken");
     setShowModalAccount(false);
-    //router.push('/')
-    //router.refresh();
-    //router.reload();
-    //router.replace(router.asPath);
+    
     window.location.reload();
-    // redirect('/');
+   
   };
   const { data, isPending, isSuccess } = useGetUserData();
 

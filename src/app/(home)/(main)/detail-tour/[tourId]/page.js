@@ -9,15 +9,18 @@ import { SiSpringsecurity } from "react-icons/si";
 import Link from "next/link";
 import { TbRouteSquare2 } from "react-icons/tb";
 import { BsFillCalendarWeekFill } from "react-icons/bs";
-import BuyButton from "@/app/(home)/_components/modules/buttons/BuyButton";
+import RezerveButton from "@/app/(home)/_components/modules/buttons/RezerveButton";
+import { serverFetch } from "@/core/services/http-server";
 export default async function detailTour({ params, searchParams }) {
   const resolvedParams = await params;
 
   const { tourId } = resolvedParams;
   const moment = require("jalali-moment");
 
-  const res = await publicAxios.get(`tour/${tourId}`);
-  const data = await res.data;
+  //const res = await publicAxios.get(`tour/${tourId}`);
+  // const data = await res.data;
+  const data = await serverFetch(`tour/${tourId}`, "", { cache: "no-store" });
+  //console.log(data);
 
   return (
     <div className="flex justify-center mx-auto md:bg-neutral-200 h-screen ">
@@ -96,7 +99,7 @@ export default async function detailTour({ params, searchParams }) {
                 رزرو و خرید
               </Link> */}
 
-              <BuyButton text="رزرو و خرید" url={`/reserve-tour/${data.id}`} />
+              <RezerveButton id={data.id} />
               <div className="flex gap-2 items-center">
                 <span className="text-2xl text-[28px] text-[#009ECA]">
                   {data.price}
@@ -115,7 +118,7 @@ export default async function detailTour({ params, searchParams }) {
             }
             text="مبدا"
             className="text-base lg:text-lg text-[#444444] "
-            option={data.origin.name}
+            option={data?.origin?.name}
           />
           <Line />
 

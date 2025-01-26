@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { readData } from "@/core/services/http-service";
 import QueryString from "qs";
+import { privateAxios } from "@/core/services/privateAxios";
 
 const getUserData = async () => {
   const url = `user/profile/`;
   return readData(url);
 };
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 const getTours = async () => {
   // const  {originId,destinationId,startDate } =query
@@ -20,14 +22,21 @@ const getTours = async () => {
   return readData(url);
 };
 
+const getBasket = async () => {
+  const url = `basket`;
+  return readData(url);
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
 export const useGetUserData = () => {
   return useQuery({
-    queryKey: ["GetUserData"],
+    queryKey: ["UserData"],
     queryFn: () => getUserData(),
     // staleTime: 2 * 60 * 60 * 1000,
     // gcTime: 6 * 60 * 60 * 1000,
   });
 };
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 export const useGetAllTours = () => {
   //console.log(query);
@@ -49,13 +58,16 @@ export const useGetAllTours = () => {
 
   return useQuery({ queryFn, queryKey, enabled: false });
 };
+//-----------------------------------------------------------------------------------------------------------------------------------
 
-const useGetBasket = () => {
-  const queryFn = () => api.get("basket");
-  const queryKey = ["user-basket"];
+export const useGetBasket = () => {
+  const queryFn = () => getBasket();
+  const queryKey = ["UserBasket"];
 
   return useQuery({ queryFn, queryKey });
 };
+
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 const useGetUserTours = () => {
   const queryFn = () => api.get("user/tours");
@@ -63,6 +75,7 @@ const useGetUserTours = () => {
 
   return useQuery({ queryFn, queryKey });
 };
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 // const useGetTours = (query) => {
 //   const url = "tour?" + QueryString.stringify(query);

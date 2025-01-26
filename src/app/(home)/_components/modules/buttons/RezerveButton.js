@@ -6,21 +6,29 @@ import { useAddToBasket } from "@/app/(home)/_api/main/mutations";
 
 function RezerveButton({ id }) {
     const router = useRouter();
-    const { mutate, isPending } = useAddToBasket();
-
+    const { isPending,mutate} = useAddToBasket();
+   
 
   const cartHandler = () => {
-    if (isPending) return;
+   // if (isPending) return 
 
     mutate(id, {
-      onSuccess: (data) => {
-        toast.success(data.data.message);
-        router.push("/checkout");
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    });
+      
+      onSuccess: (res) => {
+        toast.success(res.data.message);
+        router.push("/checkout")
+      }})
+      
+     
+   // });
+
+
+   
+      
+    
+      
+
+    
   };
   return (
     <button

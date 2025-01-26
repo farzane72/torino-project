@@ -34,6 +34,7 @@ privateAxios.interceptors.response.use(
   },
   async (error) => {
     console.log(error);
+   
     const originalRequest = error.config;
 
     // if (error.response){
@@ -46,9 +47,11 @@ privateAxios.interceptors.response.use(
         SetCookie("refreshToken", res?.response?.data.refreshToken, 360);
         return privateAxios(originalRequest);
       } else {
+        
         SetCookie("accessToken", "", 0);
         SetCookie("refreshToken", "", 0);
       }
+     
       return Promise.reject(error);
       //try {
       //const currentRefreshToken = localStorage.getItem("refreshToken")
